@@ -1,9 +1,14 @@
+import { useState } from "react";
 import Button from "../../components/Button/Button";
 const Home = () => {
+  const [vista, setVista] = useState(true);
   return (
-    <div>
-      <Button />
-    </div>
+    <>
+      {vista ? <p>Pelis por ver</p> : <p>PelisVistas</p>}
+      <button onClick={() => setVista(!vista)}>
+        {vista ? "Pelis por ver" : "PelisVistas"}
+      </button>
+    </>
   );
 };
 
