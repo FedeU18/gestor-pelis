@@ -13,8 +13,7 @@
 
 - Arreglo de pelis y guardar en localStorage (Fede).
 
-- Componente: Card (título, director, año, género, rating y tipo ) (Ema)
-
 - Formulario (Rodri)
 
 ## Done
+- Componente: Card (título, director, año, género, rating y tipo ) (Ema) (a revisar)
