@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import FloatingButton from "../../components/Button/FloatingButton";
 import Card from "../../components/Card/Card";
 import Form from "../../components/Form/Form";
+import Search from "../../components/Search/Search";
+
 import styles from "./Home.module.css";
 
 const datosPorDefecto = [
@@ -110,14 +112,23 @@ const Home = () => {
   const agregarItem = (item) => {
     setItems((prevItems) => [...prevItems, item]);
   };
+  
+  const [busqueda, setBusqueda] = useState("");
 
-  const itemsFiltrados = vista
+  //filtramos los items según la búsqueda y la vista seleccionada
+  const itemsFiltrados = (vista
     ? items.filter((item) => !item.visto)
-    : items.filter((item) => item.visto);
+    : items.filter((item) => item.visto)
+  ).filter((item) =>
+    item.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
+    item.director.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   return (
     <>
       <title texto="Gestor de Películas y Series" />
+
+      <Search valor={busqueda} onCambio={setBusqueda} />
 
       <button
         onClick={() => {

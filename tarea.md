@@ -12,6 +12,7 @@
 
 - Listas (contenido para ver y contenido visto) (Fede)
 - Formulario (Rodri)
+- Un input de búsqueda para filtrar por título o director (Ema)
 
 ## Done
 
