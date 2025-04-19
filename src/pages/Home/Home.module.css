@@ -1,6 +1,30 @@
+body{
+  background-image: url(https://media.tenor.com/_HF9GEeHzXIAAAAe/perros-con-ceja.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.contenido {
+  display: flex;
+  position: relative;
+}
+
+.filtrosWrapper {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 10;
+}
+
+.principal {
+  flex: 1;
+  padding-right: 240px;
+}
+
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+}

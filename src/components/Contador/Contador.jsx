@@ -1,12 +1,13 @@
+//componente de adorno pq al final no lo usamos nada xd
 import styles from "./Contador.module.css";
 
 const Contador = ({items}) => {
   const cantPelis = items.filter((item) => item.tipo === "Pelicula").length;
   const cantSeries = items.filter((item) => item.tipo === "Serie").length;
 
-  const generosContados = items.reduce((acc, item) => {
-    acc[item.genero] = (acc[item.genero] || 0) + 1;
-    return acc;
+  const generosContados = items.reduce((acum, item) => {
+    acum[item.genero] = (acum[item.genero] || 0) + 1;
+    return acum;
   }, {});
 
   return (

@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import FloatingButton from "../../components/Button/FloatingButton";
 import Card from "../../components/Card/Card";
 import Form from "../../components/Form/Form";
-import Search from "../../components/Search/Search";
-import Contador from "../../components/Contador/Contador";
+import Filtros from "../../components/Filtros/Filtros";
 
 import styles from "./Home.module.css";
 
@@ -116,6 +115,11 @@ const Home = () => {
   
   const [busqueda, setBusqueda] = useState("");
 
+  const [filtros, setFiltros] = useState({
+    genero: "Todos",
+    tipo: "Todos",
+  });
+
   //filtramos los items según la búsqueda y la vista seleccionada
   const itemsFiltrados = (vista
     ? items.filter((item) => !item.visto)
@@ -123,49 +127,58 @@ const Home = () => {
   ).filter((item) =>
     item.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
     item.director.toLowerCase().includes(busqueda.toLowerCase())
+  ).filter((item) =>
+    (filtros.genero === "Todos" || item.genero === filtros.genero) &&
+    (filtros.tipo === "Todos" || item.tipo === filtros.tipo)
   );
 
   return (
     <>
       <title texto="Gestor de Películas y Series" />
-
-      <Search valor={busqueda} onCambio={setBusqueda} />
-
-      <Contador items={items} />
-
-      <button
-        onClick={() => {
-          localStorage.clear();
-          window.location.reload();
-        }}
-      >
-        Limpiar localStorage
-      </button>
-      <br />
-      <button onClick={() => setVista(!vista)}>
-        {vista ? "Pelis por ver" : "Pelis Vistas"}
-      </button>
-
-      {vista ? <p>Pelis Vistas</p> : <p>Pelis por ver</p>}
-
-      <FloatingButton onClick={() => setMostrarFormulario(true)}>
-        +
-      </FloatingButton>
-
-      <div className={styles.grid}>
-        {itemsFiltrados.map((item, index) => (
-          <Card
-            key={index}
-            titulo={item.titulo}
-            director={item.director}
-            año={item.anio}
-            genero={item.genero}
-            rating={item.rating}
-            tipo={item.tipo}
-            imagen={item.imagen}
-            visto={item.visto}
+      <div className={styles.contenido}>
+        <div className={styles.filtrosWrapper}>
+          <Filtros
+            items={items}
+            filtros={filtros}
+            setFiltros={setFiltros}
+            valorBusqueda={busqueda}
+            onCambioBusqueda={setBusqueda}
           />
-        ))}
+        </div>
+
+        <div className={styles.principal}>
+          <button
+            onClick={() => {
+              localStorage.clear();
+              window.location.reload();
+            }}
+          >
+            Limpiar localStorage
+          </button>
+          <br />
+          <button onClick={() => setVista(!vista)}>
+            {vista ? "Pelis por ver" : "Pelis Vistas"}
+          </button>
+          {vista ? <p>Pelis Vistas</p> : <p>Pelis por ver</p>}
+
+          <FloatingButton onClick={() => setMostrarFormulario(true)}>+</FloatingButton>
+
+          <div className={styles.grid}>
+            {itemsFiltrados.map((item, index) => (
+              <Card
+                key={index}
+                titulo={item.titulo}
+                director={item.director}
+                año={item.anio}
+                genero={item.genero}
+                rating={item.rating}
+                tipo={item.tipo}
+                imagen={item.imagen}
+                visto={item.visto}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {mostrarFormulario && (
