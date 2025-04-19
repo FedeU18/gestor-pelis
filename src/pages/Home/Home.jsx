@@ -3,6 +3,7 @@ import FloatingButton from "../../components/Button/FloatingButton";
 import Card from "../../components/Card/Card";
 import Form from "../../components/Form/Form";
 import Search from "../../components/Search/Search";
+import Contador from "../../components/Contador/Contador";
 
 import styles from "./Home.module.css";
 
@@ -129,6 +130,8 @@ const Home = () => {
       <title texto="Gestor de Películas y Series" />
 
       <Search valor={busqueda} onCambio={setBusqueda} />
+
+      <Contador items={items} />
 
       <button
         onClick={() => {
