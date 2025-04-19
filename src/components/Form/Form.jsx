@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./Form.module.css";
+import RatingStars from "../RatingStars/RatingStars";
 
 function Form({ onGuardar, onCancelar, onEditar }) {
   const [titulo, setTitulo] = useState("");
@@ -9,6 +10,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
   const [rating, setRating] = useState(0);
   const [tipo, setTipo] = useState("");
   const [imagen, setImagen] = useState("");
+  const [visto, setVisto] = useState("");
 
   useEffect(() => {
     if (onEditar) {
@@ -16,24 +18,17 @@ function Form({ onGuardar, onCancelar, onEditar }) {
       setDirector(onEditar.director || "");
       setAnio(onEditar.anio || "");
       setGenero(onEditar.genero || "");
-      setRating(onEditar.rating || "");
+      setRating(parseFloat(onEditar.rating || 0));
       setTipo(onEditar.tipo || "");
       setImagen(onEditar.imagen || "");
+      setVisto(onEditar.visto || "");
     }
   }, [onEditar]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      !titulo ||
-      !director ||
-      !anio ||
-      !genero ||
-      !rating ||
-      !tipo ||
-      !imagen
-    ) {
+    if (!titulo || !director || !anio || !genero || !tipo || !imagen) {
       alert("Por favor completá todos los campos.");
       return;
     }
@@ -46,7 +41,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
       rating,
       tipo,
       imagen,
-      visto: false,
+      visto,
     };
 
     onGuardar(item);
@@ -113,14 +108,20 @@ function Form({ onGuardar, onCancelar, onEditar }) {
             />
           </div>
           <div className={styles.field}>
-            <label>Rating:</label>
+            <label>¿Visto?</label>
             <input
-              type="number"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              min="0"
-              max="10"
-              step="0.1"
+              type="checkbox"
+              checked={visto}
+              onChange={(e) => setVisto(e.target.checked)}
+            />
+          </div>
+          <div className={styles.field}>
+            <label>Rating:</label>
+            <RatingStars
+              className={styles.ratingStars}
+              rating={rating}
+              onChange={setRating}
+              editable={true}
             />
           </div>
 

@@ -1,0 +1,21 @@
+.contenedor {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.estrella {
+  color: lightgray;
+  font-size: 24px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+/* Aplica el hover solo si el contenedor no tiene la clase noHover */
+.contenedor:not(.noHover) .estrella:hover {
+  transform: scale(1.2);
+}
+
+.estrella:hover,
+.estrella:not(.noHover),
+.estrella.activa {
+  color: gold;
+}
