@@ -160,6 +160,7 @@ const Home = () => {
             rating={item.rating}
             tipo={item.tipo}
             imagen={item.imagen}
+            visto={item.visto}
           />
         ))}
       </div>

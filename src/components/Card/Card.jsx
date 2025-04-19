@@ -1,6 +1,6 @@
 import styles from "./Card.module.css";
 
-const Card = ({ titulo, director, año, genero, rating, tipo, imagen }) => {
+const Card = ({ titulo, director, año, genero, rating, tipo, imagen, visto }) => {
     const renderEstrellitas = (rating) => {
       const cantidad = Math.floor(rating);
       const estrellitas = [];
@@ -27,6 +27,13 @@ const Card = ({ titulo, director, año, genero, rating, tipo, imagen }) => {
           <p><span className={styles.label}>Director:</span> {director}</p>
           <p><span className={styles.label}>Género:</span> <span className={styles.info}>{genero}</span></p>
           <p><span className={styles.label}>Año:</span> {año}</p>
+          <div className={styles.vistoIcono}>
+            {visto ? (
+              <span>Vista: ✅</span>
+            ) : (
+              <span>Vista: ❌</span>
+            )}
+          </div>
           <div className={styles.estrellitas}>
             {renderEstrellitas(rating)}
           </div>
