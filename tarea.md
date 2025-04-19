@@ -3,12 +3,12 @@
 ## To Do
 
 - Contador que muestre la cantidad total por lista y por género.
-- Opciones de ordenamiento por año y rating, ascendente y descendente
 - Filtros para género y tipo
 - Armar readme
 
 ## In Progress
 
+- Opciones de ordenamiento por año y rating, ascendente y descendente (Fede)
 - Listas (contenido para ver y contenido visto) (Fede)
 - Formulario (Rodri)
 - Contador que muestre la cantidad total por lista y por género. (Ema)
