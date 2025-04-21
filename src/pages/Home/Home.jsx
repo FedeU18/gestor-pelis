@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import FloatingButton from "../../components/Button/FloatingButton";
+import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import Card from "../../components/Card/Card";
 import Form from "../../components/Form/Form";
 import Filtros from "../../components/Filtros/Filtros";
+import Button from "../../components/Button/Button";
 
 import styles from "./Home.module.css";
 import Title from "../../components/Title/Title";
@@ -115,10 +116,6 @@ const Home = () => {
     }
   }, [items]);
 
-  const agregarItem = (item) => {
-    setItems((prevItems) => [...prevItems, item]);
-  };
-
   const [filtros, setFiltros] = useState({
     genero: "Todos",
     tipo: "Todos",
@@ -153,14 +150,14 @@ const Home = () => {
     });
 
   return (
-    <>
+    <div className={styles.fondo}>
       <Title
         texto={
           vista === "visto"
             ? "Contenido Visto"
             : vista === "no visto"
-            ? "Contenido por ver"
-            : "Gestor de pelis y series"
+              ? "Contenido por ver"
+              : "Gestor de pelis y series"
         }
       />
       <div className={styles.contenido}>
@@ -182,14 +179,10 @@ const Home = () => {
         </div>
 
         <div className={styles.principal}>
-          <button
-            onClick={() => {
-              localStorage.clear();
-              window.location.reload();
-            }}
-          >
-            Limpiar localStorage
-          </button>
+          <div className={styles.contenido}><Button onClick={() => {
+            localStorage.clear();
+            window.location.reload();
+          }} red>Limpiar localStorage</Button></div>
           <br />
 
           <FloatingButton onClick={() => setMostrarFormulario(true)}>
@@ -256,7 +249,7 @@ const Home = () => {
           }}
         />
       )}
-    </>
+    </div>
   );
 };
 
