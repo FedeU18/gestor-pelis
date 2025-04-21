@@ -86,7 +86,7 @@ const Home = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
   useEffect(() => {
-    const datosGuardados = localStorage.getItem("PelículasSeries");
+    const datosGuardados = localStorage.getItem("peliculasSeries");
     if (datosGuardados) {
       try {
         const parsed = JSON.parse(datosGuardados);
@@ -99,13 +99,13 @@ const Home = () => {
     } else {
       // Si no hay nada en localStorage, usamos datos por defecto
       setItems(datosPorDefecto);
-      localStorage.setItem("PelículasSeries", JSON.stringify(datosPorDefecto));
+      localStorage.setItem("peliculasSeries", JSON.stringify(datosPorDefecto));
     }
   }, []);
 
   useEffect(() => {
     if (items.length > 0) {
-      localStorage.setItem("PelículasSeries", JSON.stringify(items));
+      localStorage.setItem("peliculasSeries", JSON.stringify(items));
     }
   }, [items]);
 
