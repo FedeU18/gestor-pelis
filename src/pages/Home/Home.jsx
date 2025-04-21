@@ -86,6 +86,9 @@ const Home = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [itemEditado, setItemEditado] = useState(null);
+  const [ordenarAnio, setOrdenarAnio] = useState("asc");
+  const [ordenarRating, setOrdenarRating] = useState("asc");
+  const [ordenActivo, setOrdenActivo] = useState("anio"); // por defecto
 
   useEffect(() => {
     const datosGuardados = localStorage.getItem("peliculasSeries");
@@ -136,7 +139,17 @@ const Home = () => {
       (item) =>
         (filtros.genero === "Todos" || item.genero === filtros.genero) &&
         (filtros.tipo === "Todos" || item.tipo === filtros.tipo)
-    );
+    )
+    .sort((a, b) => {
+      if (ordenActivo === "anio") {
+        return ordenarAnio === "asc" ? a.anio - b.anio : b.anio - a.anio;
+      } else if (ordenActivo === "rating") {
+        return ordenarRating === "asc"
+          ? a.rating - b.rating
+          : b.rating - a.rating;
+      }
+      return 0;
+    });
 
   return (
     <>
@@ -151,6 +164,11 @@ const Home = () => {
             onCambioBusqueda={setBusqueda}
             vista={vista}
             setVista={setVista}
+            ordenarAnio={ordenarAnio}
+            setOrdenarAnio={setOrdenarAnio}
+            ordenarRating={ordenarRating}
+            setOrdenarRating={setOrdenarRating}
+            setOrdenActivo={setOrdenActivo}
           />
         </div>
 

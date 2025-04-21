@@ -1,6 +1,7 @@
 import styles from "./Filtros.module.css";
 import Search from "../Search/Search";
-
+import { FaStar } from "react-icons/fa";
+import { LuArrowDown, LuArrowUp } from "react-icons/lu";
 //contar los generos de series/pelis
 const Filtros = ({
   items,
@@ -10,6 +11,11 @@ const Filtros = ({
   onCambioBusqueda,
   vista,
   setVista,
+  ordenarAnio,
+  setOrdenarAnio,
+  ordenarRating,
+  setOrdenarRating,
+  setOrdenActivo,
 }) => {
   const generosContados = items.reduce((acum, item) => {
     acum[item.genero] = (acum[item.genero] || 0) + 1;
@@ -54,14 +60,34 @@ const Filtros = ({
         </option>
         {Object.entries(tiposContados).map(([tipo, cantidad]) => (
           <option key={tipo} value={tipo}>
-            {" "}
             {tipo} ({cantidad})
           </option>
         ))}
       </select>
+
+      <button
+        onClick={() => {
+          setOrdenActivo("anio");
+          setOrdenarAnio(ordenarAnio === "asc" ? "desc" : "asc");
+        }}
+      >
+        Ordenar por año{" "}
+        {ordenarAnio === "asc" ? <LuArrowDown /> : <LuArrowUp />}
+      </button>
+
+      <button
+        onClick={() => {
+          setOrdenActivo("rating");
+          setOrdenarRating(ordenarRating === "asc" ? "desc" : "asc");
+        }}
+      >
+        Ordenar por rating{" "}
+        {ordenarRating === "asc" ? <LuArrowDown /> : <LuArrowUp />}
+      </button>
+
       <button onClick={() => setVista("todo")}>Ver Todo</button>
-      <button onClick={() => setVista("no visto")}>Contenido por ver</button>
-      <button onClick={() => setVista("visto")}>Contenido visto</button>
+      <button onClick={() => setVista("no visto")}>Contenido por ver ❌</button>
+      <button onClick={() => setVista("visto")}>Contenido visto ✅</button>
     </div>
   );
 };
