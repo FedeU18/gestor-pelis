@@ -81,9 +81,11 @@ const datosPorDefecto = [
 ];
 
 const Home = () => {
-  const [vista, setVista] = useState(true);
+  const [vista, setVista] = useState("visto");
   const [items, setItems] = useState([]);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
+  const [itemEditado, setItemEditado] = useState(null);
 
   useEffect(() => {
     const datosGuardados = localStorage.getItem("peliculasSeries");
@@ -112,8 +114,6 @@ const Home = () => {
   const agregarItem = (item) => {
     setItems((prevItems) => [...prevItems, item]);
   };
-  
-  const [busqueda, setBusqueda] = useState("");
 
   const [filtros, setFiltros] = useState({
     genero: "Todos",
@@ -121,18 +121,22 @@ const Home = () => {
   });
 
   //filtramos los items según la búsqueda y la vista seleccionada
-  const itemsFiltrados = (vista
-    ? items.filter((item) => !item.visto)
-    : items.filter((item) => item.visto)
-  ).filter((item) =>
-    item.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-    item.director.toLowerCase().includes(busqueda.toLowerCase())
-  ).filter((item) =>
-    (filtros.genero === "Todos" || item.genero === filtros.genero) &&
-    (filtros.tipo === "Todos" || item.tipo === filtros.tipo)
-  );
-
-  const [itemEditado, setItemEditado] = useState(null);
+  const itemsFiltrados = items
+    .filter((item) => {
+      if (vista === "visto") return item.visto;
+      if (vista === "no visto") return !item.visto;
+      return true;
+    })
+    .filter(
+      (item) =>
+        item.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
+        item.director.toLowerCase().includes(busqueda.toLowerCase())
+    )
+    .filter(
+      (item) =>
+        (filtros.genero === "Todos" || item.genero === filtros.genero) &&
+        (filtros.tipo === "Todos" || item.tipo === filtros.tipo)
+    );
 
   return (
     <>
@@ -145,6 +149,8 @@ const Home = () => {
             setFiltros={setFiltros}
             valorBusqueda={busqueda}
             onCambioBusqueda={setBusqueda}
+            vista={vista}
+            setVista={setVista}
           />
         </div>
 
@@ -158,44 +164,45 @@ const Home = () => {
             Limpiar localStorage
           </button>
           <br />
-          <button onClick={() => setVista(!vista)}>
-            {vista ? "Pelis por ver" : "Pelis Vistas"}
-          </button>
-          {vista ? <p>Pelis Vistas</p> : <p>Pelis por ver</p>}
 
-          <FloatingButton onClick={() => setMostrarFormulario(true)}>+</FloatingButton>
+          <FloatingButton onClick={() => setMostrarFormulario(true)}>
+            +
+          </FloatingButton>
 
           <div className={styles.grid}>
-          {/*verificar q no hayan series o peliculas*/}
+            {/*verificar q no hayan series o peliculas*/}
             {itemsFiltrados.length === 0 ? (
-              <p className={styles.noHay}>No se encontraron películas o series</p>
-            ) : ( itemsFiltrados.map((item, index) => (
-              <Card
-                key={index}
-                titulo={item.titulo}
-                director={item.director}
-                año={item.anio}
-                genero={item.genero}
-                rating={item.rating}
-                tipo={item.tipo}
-                imagen={item.imagen}
-                visto={item.visto}
-                //editar y eliminar cards
-                onEditar={() => {
-                  setItemEditado(item);
-                  setMostrarFormulario(true);
-                }}
-                onEliminar={() => {
-                  //funcion de confirmacion de js
-                  const confirmacion = confirm(`¿Eliminar "${item.titulo}"?`);
-                  if (confirmacion) {
-                    const nuevosItems = items.filter((i) => i !== item);
-                    setItems(nuevosItems);
-                  }
-                }}
-              />
-            ))
-          )}
+              <p className={styles.noHay}>
+                No se encontraron películas o series
+              </p>
+            ) : (
+              itemsFiltrados.map((item, index) => (
+                <Card
+                  key={index}
+                  titulo={item.titulo}
+                  director={item.director}
+                  año={item.anio}
+                  genero={item.genero}
+                  rating={item.rating}
+                  tipo={item.tipo}
+                  imagen={item.imagen}
+                  visto={item.visto}
+                  //editar y eliminar cards
+                  onEditar={() => {
+                    setItemEditado(item);
+                    setMostrarFormulario(true);
+                  }}
+                  onEliminar={() => {
+                    //funcion de confirmacion de js
+                    const confirmacion = confirm(`¿Eliminar "${item.titulo}"?`);
+                    if (confirmacion) {
+                      const nuevosItems = items.filter((i) => i !== item);
+                      setItems(nuevosItems);
+                    }
+                  }}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>

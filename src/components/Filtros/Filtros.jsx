@@ -2,7 +2,15 @@ import styles from "./Filtros.module.css";
 import Search from "../Search/Search";
 
 //contar los generos de series/pelis
-const Filtros = ({ items, filtros, setFiltros, valorBusqueda, onCambioBusqueda }) => {
+const Filtros = ({
+  items,
+  filtros,
+  setFiltros,
+  valorBusqueda,
+  onCambioBusqueda,
+  vista,
+  setVista,
+}) => {
   const generosContados = items.reduce((acum, item) => {
     acum[item.genero] = (acum[item.genero] || 0) + 1;
     return acum;
@@ -39,11 +47,21 @@ const Filtros = ({ items, filtros, setFiltros, valorBusqueda, onCambioBusqueda }
       </select>
 
       <label>Tipo:</label>
-        <select name="tipo" value={filtros.tipo} onChange={handleChange}>
-            <option value="Todos">Todos ({Object.values(tiposContados).reduce((acum, val) => acum + val, 0)})</option>
-            {Object.entries(tiposContados).map(([tipo, cantidad]) => (
-            <option key={tipo} value={tipo}> {tipo} ({cantidad})</option> ))}
-        </select>
+      <select name="tipo" value={filtros.tipo} onChange={handleChange}>
+        <option value="Todos">
+          Todos (
+          {Object.values(tiposContados).reduce((acum, val) => acum + val, 0)})
+        </option>
+        {Object.entries(tiposContados).map(([tipo, cantidad]) => (
+          <option key={tipo} value={tipo}>
+            {" "}
+            {tipo} ({cantidad})
+          </option>
+        ))}
+      </select>
+      <button onClick={() => setVista("todo")}>Ver Todo</button>
+      <button onClick={() => setVista("no visto")}>Contenido por ver</button>
+      <button onClick={() => setVista("visto")}>Contenido visto</button>
     </div>
   );
 };
