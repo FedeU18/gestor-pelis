@@ -2,6 +2,8 @@ import styles from "./Filtros.module.css";
 import Search from "../Search/Search";
 import { FaStar } from "react-icons/fa";
 import { LuArrowDown, LuArrowUp } from "react-icons/lu";
+import Button from "../Button/Button";
+
 //contar los generos de series/pelis
 const Filtros = ({
   items,
@@ -65,29 +67,33 @@ const Filtros = ({
         ))}
       </select>
 
-      <button
-        onClick={() => {
-          setOrdenActivo("anio");
-          setOrdenarAnio(ordenarAnio === "asc" ? "desc" : "asc");
-        }}
-      >
-        Ordenar por año{" "}
-        {ordenarAnio === "asc" ? <LuArrowDown /> : <LuArrowUp />}
-      </button>
+      <div className={styles.contenedor}>
+        <Button
+          onClick={() => {
+            setOrdenActivo("anio");
+            setOrdenarAnio(ordenarAnio === "asc" ? "desc" : "asc");
+          }}
+        >
+          Ordenar por año{" "}
+          {ordenarAnio === "asc" ? <LuArrowDown /> : <LuArrowUp />}
+        </Button>
 
-      <button
-        onClick={() => {
-          setOrdenActivo("rating");
-          setOrdenarRating(ordenarRating === "asc" ? "desc" : "asc");
-        }}
-      >
-        Ordenar por rating{" "}
-        {ordenarRating === "asc" ? <LuArrowDown /> : <LuArrowUp />}
-      </button>
+        <Button
+          onClick={() => {
+            setOrdenActivo("rating");
+            setOrdenarRating(ordenarRating === "asc" ? "desc" : "asc");
+          }}
+        >
+          Ordenar por rating{" "}
+          {ordenarRating === "asc" ? <LuArrowDown /> : <LuArrowUp />}
+        </Button>
+      </div>
 
-      <button onClick={() => setVista("todo")}>Ver Todo</button>
-      <button onClick={() => setVista("no visto")}>Contenido por ver ❌</button>
-      <button onClick={() => setVista("visto")}>Contenido visto ✅</button>
+      <div className={styles.contenedor}>
+        <Button onClick={() => setVista("todo")}>Ver Todo</Button>
+        <Button onClick={() => setVista("no visto")}>Contenido por ver ❌</Button>
+        <Button onClick={() => setVista("visto")}>Contenido visto ✅</Button>
+      </div>
     </div>
   );
 };
