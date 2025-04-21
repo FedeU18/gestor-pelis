@@ -13,7 +13,7 @@ const datosPorDefecto = [
     anio: 1994,
     genero: "Drama",
     rating: 4,
-    tipo: "Pelicula",
+    tipo: "Película",
     imagen: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
     visto: false,
   },
@@ -33,7 +33,7 @@ const datosPorDefecto = [
     anio: 2010,
     genero: "Ciencia Ficción",
     rating: 3,
-    tipo: "Pelicula",
+    tipo: "Película",
     imagen: "https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg",
     visto: false,
   },
@@ -53,7 +53,7 @@ const datosPorDefecto = [
     anio: 1972,
     genero: "Crimen",
     rating: 5,
-    tipo: "Pelicula",
+    tipo: "Película",
     imagen: "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
     visto: false,
   },
@@ -63,7 +63,7 @@ const datosPorDefecto = [
     anio: 2013,
     genero: "Acción",
     rating: 5,
-    tipo: "Pelicula",
+    tipo: "Película",
     imagen:
       "https://upload.wikimedia.org/wikipedia/en/e/e0/The_Amazing_Spider-Man_%28film%29_poster.jpg",
     visto: false,
@@ -86,7 +86,7 @@ const Home = () => {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
   useEffect(() => {
-    const datosGuardados = localStorage.getItem("peliculasSeries");
+    const datosGuardados = localStorage.getItem("PelículasSeries");
     if (datosGuardados) {
       try {
         const parsed = JSON.parse(datosGuardados);
@@ -99,13 +99,13 @@ const Home = () => {
     } else {
       // Si no hay nada en localStorage, usamos datos por defecto
       setItems(datosPorDefecto);
-      localStorage.setItem("peliculasSeries", JSON.stringify(datosPorDefecto));
+      localStorage.setItem("PelículasSeries", JSON.stringify(datosPorDefecto));
     }
   }, []);
 
   useEffect(() => {
     if (items.length > 0) {
-      localStorage.setItem("peliculasSeries", JSON.stringify(items));
+      localStorage.setItem("PelículasSeries", JSON.stringify(items));
     }
   }, [items]);
 
@@ -131,6 +131,8 @@ const Home = () => {
     (filtros.genero === "Todos" || item.genero === filtros.genero) &&
     (filtros.tipo === "Todos" || item.tipo === filtros.tipo)
   );
+
+  const [itemEditado, setItemEditado] = useState(null);
 
   return (
     <>
@@ -164,7 +166,10 @@ const Home = () => {
           <FloatingButton onClick={() => setMostrarFormulario(true)}>+</FloatingButton>
 
           <div className={styles.grid}>
-            {itemsFiltrados.map((item, index) => (
+          {/*verificar q no hayan series o peliculas*/}
+            {itemsFiltrados.length === 0 ? (
+              <p className={styles.noHay}>No se encontraron películas o series</p>
+            ) : ( itemsFiltrados.map((item, index) => (
               <Card
                 key={index}
                 titulo={item.titulo}
@@ -175,18 +180,45 @@ const Home = () => {
                 tipo={item.tipo}
                 imagen={item.imagen}
                 visto={item.visto}
+                //editar y eliminar cards
+                onEditar={() => {
+                  setItemEditado(item);
+                  setMostrarFormulario(true);
+                }}
+                onEliminar={() => {
+                  //funcion de confirmacion de js
+                  const confirmacion = confirm(`¿Eliminar "${item.titulo}"?`);
+                  if (confirmacion) {
+                    const nuevosItems = items.filter((i) => i !== item);
+                    setItems(nuevosItems);
+                  }
+                }}
               />
-            ))}
+            ))
+          )}
           </div>
         </div>
       </div>
 
       {mostrarFormulario && (
         <Form
-          onCancelar={() => setMostrarFormulario(false)}
-          onGuardar={(item) => {
-            agregarItem(item);
+          onCancelar={() => {
             setMostrarFormulario(false);
+            //form editado
+            setItemEditado(null);
+          }}
+          onEditar={itemEditado}
+          onGuardar={(nuevoItem) => {
+            if (itemEditado) {
+              const nuevosItems = items.map((i) =>
+                i === itemEditado ? nuevoItem : i
+              );
+              setItems(nuevosItems);
+            } else {
+              setItems((prev) => [...prev, nuevoItem]);
+            }
+            setMostrarFormulario(false);
+            setItemEditado(null);
           }}
         />
       )}

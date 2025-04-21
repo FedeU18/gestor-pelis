@@ -1,6 +1,7 @@
 import styles from "./Filtros.module.css";
 import Search from "../Search/Search";
 
+//contar los generos de series/pelis
 const Filtros = ({ items, filtros, setFiltros, valorBusqueda, onCambioBusqueda }) => {
   const generosContados = items.reduce((acum, item) => {
     acum[item.genero] = (acum[item.genero] || 0) + 1;

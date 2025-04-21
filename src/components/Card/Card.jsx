@@ -11,6 +11,9 @@ const Card = ({
   tipo,
   imagen,
   visto,
+  //editar y eliminar cards
+  onEditar,
+  onEliminar,
 }) => {
   /* const renderEstrellitas = (rating) => {
       const cantidad = Math.floor(rating);
@@ -31,6 +34,11 @@ const Card = ({
 
   return (
     <div className={styles.card}>
+      <div className={styles.botones}>
+      {/*Edtiar y eliminar */}
+        <button onClick={() => onEditar && onEditar()}>✏️</button>
+        <button onClick={() => onEliminar && onEliminar()}>🗑️</button>
+      </div>
       <img src={imagen} alt={titulo} className={styles.imagen} />
       <div className={styles.contenido}>
         <h3 className={styles.title}>{titulo}</h3>
