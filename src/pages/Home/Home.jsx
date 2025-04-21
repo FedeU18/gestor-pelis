@@ -5,6 +5,7 @@ import Form from "../../components/Form/Form";
 import Filtros from "../../components/Filtros/Filtros";
 
 import styles from "./Home.module.css";
+import Title from "../../components/Title/Title";
 
 const datosPorDefecto = [
   {
@@ -81,7 +82,7 @@ const datosPorDefecto = [
 ];
 
 const Home = () => {
-  const [vista, setVista] = useState("visto");
+  const [vista, setVista] = useState("todo");
   const [items, setItems] = useState([]);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [busqueda, setBusqueda] = useState("");
@@ -153,7 +154,15 @@ const Home = () => {
 
   return (
     <>
-      <title texto="Gestor de Películas y Series" />
+      <Title
+        texto={
+          vista === "visto"
+            ? "Contenido Visto"
+            : vista === "no visto"
+            ? "Contenido por ver"
+            : "Gestor de pelis y series"
+        }
+      />
       <div className={styles.contenido}>
         <div className={styles.filtrosWrapper}>
           <Filtros
