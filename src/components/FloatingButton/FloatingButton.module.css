@@ -1,11 +1,12 @@
 .botonFlotante {
+    font-family: Arial, sans-serif;
     position: fixed;
     bottom: 2rem;
     right: 2rem;
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #007bff;
+    background-color: green;
     color: white;
     font-size: 2rem;
     cursor: pointer;
@@ -19,4 +20,17 @@
 
 .botonFlotante:hover {
     transform: scale(1.1);
+    background-color: darkgreen;
+}
+
+.redButton {
+    background-color: red;
+    color: white;
+    position: fixed; /* Asegúrate de que sea fijo como el otro botón */
+    bottom: 2rem; /* Mantén la misma distancia desde abajo */
+    left: 2rem; /* Cambia 'right' por 'left' para moverlo a la izquierda */
+}
+
+.redButton:hover {
+    background-color: darkred;
 }

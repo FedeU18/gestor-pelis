@@ -4,9 +4,11 @@ import Card from "../../components/Card/Card";
 import Form from "../../components/Form/Form";
 import Filtros from "../../components/Filtros/Filtros";
 import Button from "../../components/Button/Button";
-
 import styles from "./Home.module.css";
 import Title from "../../components/Title/Title";
+import stylesTitulo from "../../components/Title/Title.module.css";
+import { RotateCcw } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 const datosPorDefecto = [
   {
@@ -150,17 +152,19 @@ const Home = () => {
     });
 
   return (
-    <div className={styles.fondo}>
+    <div className={styles.conte}>
       <Title
+        className={stylesTitulo.titulo}
         texto={
           vista === "visto"
-            ? "Contenido Visto"
+            ? "Contenido visto"
             : vista === "no visto"
               ? "Contenido por ver"
-              : "Gestor de pelis y series"
+              : "Gestor de películas y series"
         }
       />
       <div className={styles.contenido}>
+
         <div className={styles.filtrosWrapper}>
           <Filtros
             items={items}
@@ -179,14 +183,21 @@ const Home = () => {
         </div>
 
         <div className={styles.principal}>
-          <div className={styles.contenido}><Button onClick={() => {
-            localStorage.clear();
-            window.location.reload();
-          }} red>Limpiar localStorage</Button></div>
-          <br />
 
           <FloatingButton onClick={() => setMostrarFormulario(true)}>
             +
+            {/*<Plus size={24} color="white"/>*/}
+          </FloatingButton>
+
+          <FloatingButton
+            onClick={() => {
+              localStorage.clear();
+              window.location.reload();
+            }}
+            red
+          >
+            🗑️
+            {/*<RotateCcw size={24} color="white"/>*/}
           </FloatingButton>
 
           <div className={styles.grid}>

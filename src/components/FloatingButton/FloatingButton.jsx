@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./FloatingButton.module.css";
 
-const FloatingButton = ({ onClick, children }) => {
+const FloatingButton = ({ onClick, children, red }) => {
   return (
-    <button onClick={onClick} className={styles.botonFlotante}>
+    <button
+      className={`${styles.botonFlotante} ${red ? styles.redButton : ''}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

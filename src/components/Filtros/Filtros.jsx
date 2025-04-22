@@ -44,7 +44,7 @@ const Filtros = ({
       {/*comp search dentro de filtros*/}
       <Search valor={valorBusqueda} onCambio={onCambioBusqueda} />
 
-      <label>Género:</label>
+      <label><strong>Género:</strong></label>
       <select name="genero" value={filtros.genero} onChange={handleChange}>
         <option value="Todos">Todos</option>
         {Object.entries(generosContados).map(([genero, cantidad]) => (
@@ -54,7 +54,7 @@ const Filtros = ({
         ))}
       </select>
 
-      <label>Tipo:</label>
+      <label><strong>Tipo:</strong></label>
       <select name="tipo" value={filtros.tipo} onChange={handleChange}>
         <option value="Todos">
           Todos (

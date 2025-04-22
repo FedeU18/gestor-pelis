@@ -1,0 +1,12 @@
+.titulo {
+    position: relative;
+    font-size: 4rem;
+    font-family: "Itim", cursive;
+    color: white;
+    text-align: center;
+    padding-right: 20%;
+    -webkit-text-stroke: 2px black;
+    text-shadow:
+        0 0 4px gold,
+        0 0 8px gray;
+}
