@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./Form.module.css";
 import RatingStars from "../RatingStars/RatingStars";
+import Button from "../Button/Button";
 
 function Form({ onGuardar, onCancelar, onEditar }) {
   const [titulo, setTitulo] = useState("");
@@ -29,7 +30,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
     e.preventDefault();
 
     if (!titulo || !director || !anio || !genero || !tipo || !imagen) {
-      alert("Por favor completá todos los campos.");
+      alert("Por favor completá los campos obligatorios.");
       return;
     }
 
@@ -44,19 +45,27 @@ function Form({ onGuardar, onCancelar, onEditar }) {
       visto,
     };
 
+    if (onEditar) {
+      const confirmacion = confirm("¿Confirma los cambios realizados?");
+      if (!confirmacion) {
+        return;
+      }
+    }
+
     onGuardar(item);
   };
 
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button onClick={onCancelar} className={styles.closeButton}>
-          ×
-        </button>
-        <h2>{onEditar ? "Editar ítem" : "Agregar ítem"}</h2>
+        <Button onClick={onCancelar} black>
+          X
+        </Button>
+        <h2 className={styles.title}>{onEditar ? "Editar ítem" : "Agregar ítem"}</h2>
+
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
-            <label>Título:</label>
+            <label>Título: <span className={styles.asterisk}>*</span></label>
             <input
               type="text"
               value={titulo}
@@ -64,7 +73,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
             />
           </div>
           <div className={styles.field}>
-            <label>Director:</label>
+            <label>Director: <span className={styles.asterisk}>*</span></label>
             <input
               type="text"
               value={director}
@@ -72,7 +81,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
             />
           </div>
           <div className={styles.field}>
-            <label>Año:</label>
+            <label>Año: <span className={styles.asterisk}>*</span></label>
             <input
               type="number"
               value={anio}
@@ -80,7 +89,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
             />
           </div>
           <div className={styles.field}>
-            <label>Género:</label>
+            <label>Género: <span className={styles.asterisk}>*</span></label>
             <select value={genero} onChange={(e) => setGenero(e.target.value)}>
               <option value="">Seleccionar género</option>
               <option value="Acción">Acción</option>
@@ -92,7 +101,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
             </select>
           </div>
           <div className={styles.field}>
-            <label>Tipo:</label>
+            <label>Tipo: <span className={styles.asterisk}>*</span></label>
             <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
               <option value="">Seleccionar tipo</option>
               <option value="Película">Película</option>
@@ -100,7 +109,7 @@ function Form({ onGuardar, onCancelar, onEditar }) {
             </select>
           </div>
           <div className={styles.field}>
-            <label>Imagen (url):</label>
+            <label>Imagen (URL) <span className={styles.asterisk}>*</span>:</label>
             <input
               type="url"
               value={imagen}
@@ -124,12 +133,14 @@ function Form({ onGuardar, onCancelar, onEditar }) {
               editable={true}
             />
           </div>
-
+          <div className={styles.note}>
+            <span className={styles.asterisk}>*</span> = dato obligatorio
+          </div>
           <div className={styles.buttons}>
-            <button type="submit">{onEditar ? "Actualizar" : "Agregar"}</button>
-            <button type="button" onClick={onCancelar}>
+            <Button type="submit">{onEditar ? "Actualizar" : "Agregar"}</Button>
+            <Button type="button" onClick={onCancelar} red>
               Cancelar
-            </button>
+            </Button>
           </div>
         </form>
       </div>

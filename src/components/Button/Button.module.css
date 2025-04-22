@@ -8,6 +8,7 @@
   color: white;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
 }
 
 .button:hover {
@@ -21,4 +22,14 @@
 
 .redButton:hover {
   background-color: darkred;
+}
+.blackButton {
+  background-color: black;
+  color: white;
+  width: 1%; /* 1/5 of the original size */
+  margin-left: auto; /* Pushes the button to the right */
+}
+
+.blackButton:hover {
+  background-color: darkgray;
 }
