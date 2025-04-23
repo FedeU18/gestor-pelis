@@ -7,8 +7,6 @@ import Button from "../../components/Button/Button";
 import styles from "./Home.module.css";
 import Title from "../../components/Title/Title";
 import stylesTitulo from "../../components/Title/Title.module.css";
-import { RotateCcw } from 'lucide-react';
-import { Plus } from 'lucide-react';
 
 const datosPorDefecto = [
   {
@@ -186,7 +184,6 @@ const Home = () => {
 
           <FloatingButton onClick={() => setMostrarFormulario(true)}>
             +
-            {/*<Plus size={24} color="white"/>*/}
           </FloatingButton>
 
           <FloatingButton
@@ -197,7 +194,6 @@ const Home = () => {
             red
           >
             🗑️
-            {/*<RotateCcw size={24} color="white"/>*/}
           </FloatingButton>
 
           <div className={styles.grid}>
