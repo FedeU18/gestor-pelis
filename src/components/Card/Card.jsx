@@ -15,6 +15,7 @@ const Card = ({
   onEditar,
   onEliminar,
 }) => {
+  //Borren codigo comentado/ que no se usa
   /* const renderEstrellitas = (rating) => {
       const cantidad = Math.floor(rating);
       const estrellitas = [];
@@ -42,6 +43,7 @@ const Card = ({
       <img src={imagen} alt={titulo} className={styles.imagen} />
       <div className={styles.contenido}>
         <h3 className={styles.title}>{titulo}</h3>
+        {/* Esta estructura de p / span podria ser un componente */}
         <p>
           <span className={styles.label}>Tipo:</span>{" "}
           <span className={styles.info}>{tipo}</span>

@@ -1,3 +1,17 @@
+Correcciones:
+
+- Codigo bien estilado, de gran calidad, muy profesional.
+- Buen uso de mensajes al usuario para evitar errores en la carga de datos.
+- Buena estructura de proyectos.
+- Componentes claros, bien adaptados a una sola tarea, pequenos y reutilizables. Gran trabajo
+- Buen uso de local storage.
+- Buen uso de useState y useEffect.
+
+Observaciones:
+- Borren codigo comentado antes de entregar.
+
+Nota: 10
+
 # Gestor de Películas y Series
 
 **Integrantes del grupo**:
